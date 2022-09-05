@@ -42,7 +42,7 @@
     color: #FEF5ED;
     display: block;
     position: fixed; 
-    z-index: 4; 
+    z-index: 3; 
     align-items: center;
     font-style: normal;
     text-transform: capitalize;

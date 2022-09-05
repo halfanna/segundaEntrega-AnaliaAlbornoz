@@ -3,30 +3,28 @@
 
 
 
-//// ARTICULOS
 const articulosStock = [
     { id: 1 , nombre: " london", tipo:"cinto", color:" rojo" , precio:1200, img: './imagenes/cinto2.jpg'  },
     { id: 2 , nombre: " madrid", tipo:"cartera", color:" rojo croco" , precio:6200  , img: './imagenes/bandolera.jpg'  },
     { id: 3 , nombre: " dallas", tipo:"bandolera", color:" verde ingles" , precio:3200 ,  img: './imagenes/cinto1.jpg'  },
     { id: 4 , nombre: " grecia", tipo:"pulsera", color:" lima" , precio:1200 ,  img: './imagenes/cinto2.jpg'  },
     { id: 5 , nombre: " holly", tipo:"cinto", color:" negro" , precio:1600 , img: './imagenes/cinto2.jpg'  },
-    { id: 6 , nombre: " greta", tipo:"cartera", color:" suela croco" , precio:7200 , img: './imagenes/bandoleranaranja.jpg'  }
+    { id: 6 , nombre: " greta", tipo:"cartera", color:" suela croco" , precio:7200 , img: './imagenes/bandoleranaranja.jpg' }
+    
+
+
 ]
 
-
-
-
-
-
+let  carritoArticulos = [];
 
 ///// ELEMENTOS DEL HTML
-const main = document.getElementById('main')
-const productosElegidosCarrito =document.getElementById('productosElegidos')
+const main = document.getElementById('main');
+const productosElegidosCarrito =document.getElementById('productosElegidos');
 
 const precioTotal = document.getElementById('productosElegidos')
 
-let  carritoArticulos = []
 
+ // RECORREMOS LAS CARDS DE LOS ARTICULOS Y LAS CREAMOS
 articulosStock.forEach((item) =>{
     const divArticulos = document.createElement('div')
      divArticulos.classList.add('div-item')
@@ -36,13 +34,13 @@ articulosStock.forEach((item) =>{
     <p> Tipo: ${item.tipo}</p>
     <p> Color:${item.color}</p>
     <p>Precio: ${item.precio}</p>
-    <button id="sumar${item.precio}" class="btn1">COMPRAR</button>
+    <button id="sumar${item.id}" class="btn1">COMPRAR</button>
     
     `
 
     main.appendChild(divArticulos)
    
-    const botonCompra = document.getElementById(`sumar${item.precio}`) 
+  const botonCompra = document.getElementById(`sumar${item.id}`) 
     
    botonCompra.addEventListener('click', () =>{
        sumarArticulo(item.id)
@@ -53,24 +51,24 @@ articulosStock.forEach((item) =>{
 
 })
 
-const eliminarArticulo = (itemId) => {
-    const articulo = carritoArticulos.find((item) => item.id === itemId)
-    const indice = carritoArticulos.indexOf(articulo)
-    carritoArticulos.splice(indice,1)
+const eliminarArticulo = (prodId) => {
 
-    mostrarCarrito()
+   const articulosEliminar = articulosStock.filter(prod =>prodId == prod.id)
+   console.log(articulosEliminar)
+ 
   }
 
-
+// 
 const sumarArticulo = (itemId) => {
     const articulo = articulosStock.find((item) => item.id === itemId)
     carritoArticulos.push(articulo)
-    console.log(articulo)
+    console.log(carritoArticulos)
+
 
     mostrarCarrito()
   }
 
-  
+  // Recorre el carrito para mostrar los elementos seleccionados
 const mostrarCarrito = () => {
    
     carritoArticulos.forEach((prod) =>{
@@ -92,8 +90,11 @@ const mostrarCarrito = () => {
         const botonEliminarElemento = document.getElementById(`eliminar(${prod.id})`) 
         botonEliminarElemento.addEventListener('click', () =>{
             eliminarArticulo(prod.id)
+           divArticulosCarrito.innerHTML=" " 
+           
+
           
-            eliminarArticulo();
+          
         })
 
   
